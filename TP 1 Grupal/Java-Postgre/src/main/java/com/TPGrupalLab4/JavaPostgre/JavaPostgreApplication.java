@@ -8,6 +8,7 @@ public class JavaPostgreApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaPostgreApplication.class, args);
+		System.out.println("--Estoy vivo--");
 	}
 
 }
