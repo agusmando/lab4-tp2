@@ -5,7 +5,10 @@ import com.TPGrupalLab4.JavaPostgre.service.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/empresas")
@@ -51,5 +54,13 @@ public class EmpresaController {
     @GetMapping("/empresaPrueba.html")
     public String mostrarPaginaPrueba() {
         return "empresaPrueba"; // Este es el nombre del archivo HTML sin la extensión ".html"
+    }
+
+    @GetMapping("/listaEmpresas")
+    public String mostrarListaEmpresas(Model model){
+        List<Empresa> empresas = empresaService.obtenerEmpresas();
+        model.addAttribute("empresas", empresas);
+
+        return "index";
     }
 }
