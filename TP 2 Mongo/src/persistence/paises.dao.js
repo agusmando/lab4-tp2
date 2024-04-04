@@ -17,7 +17,7 @@ class PaisesDAO {
 
     async getOne(id) {
         try {
-            const paises = await Pais.findById(id);
+            const paises = await Pais.findOne(id);
             return paises;
         } catch (error) {
             console.log("error: " + error);
@@ -28,7 +28,6 @@ class PaisesDAO {
         try {
             const paises = new Pais(data);
             await paises.save();
-            return paises;
         } catch (error) {
             console.log("error: " + error);
         }
