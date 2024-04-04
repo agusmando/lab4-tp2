@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const connectMongo = () => {
     mongoose.connect(
@@ -6,13 +7,7 @@ const connectMongo = () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
-        (err, db) => {
-            if (err)
-                console.log(
-                    "Ocurrió un error al conectarse a la base de datos " + error
-                );
-        }
     );
 };
 
-module.export = { connectMongo };
+module.exports = { connectMongo };
