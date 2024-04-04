@@ -1,7 +1,16 @@
-const daoPaises = require("../persistence/paises.dao.js");
+const DaoPaises = require("../persistence/paises.dao.js");
+
+const daoPais = new DaoPaises();
 const axios = require("axios");
 
-const getAll = async() => {};
+const getAll = async() => {
+    try {
+        const paises = await daoPais.getAll();
+        return paises;
+    } catch (error) {
+        console.log("error: " + error);
+    }
+};
 
 const populate = async() => {
     const apiPaises = await axios.get(
