@@ -1,16 +1,18 @@
 const servicePaises = require("../service/paises.service.js");
 
-const getPaises = async() => {
+const getPaises = async(req, res) => {
     try {
-        await servicePaises.getAll();
+       const paises = await servicePaises.getAll();
+       res.status(201).json({paises});
     } catch (error) {
         console.log("error: " + error);
     }
 };
 
-const savePaises = async() => {
+const savePaises = async(req, res) => {
     try {
         await servicePaises.populate();
+        res.status(200).json({message: "Paises populados"});
     } catch (error) {
         console.log("error: " + error);
     }
