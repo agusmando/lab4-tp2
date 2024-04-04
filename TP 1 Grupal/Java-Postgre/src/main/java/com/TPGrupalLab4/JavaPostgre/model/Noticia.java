@@ -21,7 +21,7 @@ public class Noticia {
     private YesNoEnum Publicada;
     @Temporal(TemporalType.DATE)
     private Date FechaPublicacion;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "IdEmpresa")
     private Empresa IdEmpresa;
 
