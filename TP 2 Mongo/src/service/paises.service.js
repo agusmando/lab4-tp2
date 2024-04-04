@@ -13,7 +13,6 @@ const getAll = async () => {
 };
 
 const populate = async () => {
-  try {
     for (let codigo = 1; codigo <= 300; codigo++) {
       const url = `https://restcountries.com/v2/callingcode/${codigo}`;
 
@@ -53,15 +52,12 @@ const populate = async () => {
         }
       } catch (error) {
         console.error(
-          `Error al obtener datos para el código ${codigo}: ${error.message}`
+          `No existe un país con el código ${codigo}: ${error.message}`
         );
       }
     }
 
     console.log("Proceso completado");
-  } catch (error) {
-    console.error("Error al ejecutar el proceso:", error);
-  }
 };
 
 module.exports = {

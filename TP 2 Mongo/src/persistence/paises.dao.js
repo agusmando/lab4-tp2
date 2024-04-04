@@ -35,7 +35,7 @@ class PaisesDAO {
 
     async update(id, data) {
         try {
-            const paises = await Pais.findByIdAndUpdate(id, data);
+            const paises = await Pais.findOneAndUpdate(id, data);
             return paises;
         } catch (error) {
             console.log("error: " + error);
