@@ -29,13 +29,15 @@
     </select><br>
 
     <label for="fechaPublicacion">Fecha de Publicación:</label><br>
-    <input th:type="date" id="fechaPublicacion" th:name="fechaPublicacion"><br>
+    <input type="date" id="fechaPublicacion" name="fechaPublicacion"><br>
 
-    <label for="empresa">Empresa:</label><br>
-    <select id="empresa" name="empresa">
+
+    <label for="empresaid">Empresa:</label><br>
+    <select id="empresaid" name="empresaid">
         <option value="">Selecciona una empresa</option>
         <option th:each="empresa : ${empresas}" th:value="${empresa.getId()}" th:text="${empresa.getDenominacion()}"></option>
     </select><br>
+
 
     <input type="submit" value="Guardar">
 </form>

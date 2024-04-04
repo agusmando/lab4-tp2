@@ -6,6 +6,7 @@ import com.TPGrupalLab4.JavaPostgre.model.YesNoEnum;
 import com.TPGrupalLab4.JavaPostgre.service.EmpresaService;
 import com.TPGrupalLab4.JavaPostgre.service.NoticiaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class NoticiaController {
                                 @RequestParam YesNoEnum publicada,
                                 @RequestParam Date fechaPublicacion,
                                 @RequestParam int empresaid) {
-        System.out.println("Datos de la PETICION: titulo:"+titulo+" resumen: "+resumen+" imagen "+imagen+" contenido "+contenido+" publicada "+publicada+" fechaPublicacion: "+fechaPublicacion+" empresaId: "+empresaid);
+       // System.out.println("Datos de la PETICION: titulo:"+titulo+" resumen: "+resumen+" imagen "+imagen+" contenido "+contenido+" publicada "+publicada+" fechaPublicacion: "+fechaPublicacion+" empresaId: "+empresaid);
         Empresa empresa = empresaService.buscarEmpresaPorID(empresaid);
 
         Noticia noticia = new Noticia();
