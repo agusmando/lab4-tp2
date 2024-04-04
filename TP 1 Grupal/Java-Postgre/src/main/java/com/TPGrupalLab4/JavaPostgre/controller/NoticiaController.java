@@ -37,7 +37,7 @@ public class NoticiaController {
                                 @RequestParam String imagen,
                                 @RequestParam String contenido,
                                 @RequestParam YesNoEnum publicada,
-                                @RequestParam Date fechaPublicacion,
+                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaPublicacion,
                                 @RequestParam int empresaid) {
        // System.out.println("Datos de la PETICION: titulo:"+titulo+" resumen: "+resumen+" imagen "+imagen+" contenido "+contenido+" publicada "+publicada+" fechaPublicacion: "+fechaPublicacion+" empresaId: "+empresaid);
         Empresa empresa = empresaService.buscarEmpresaPorID(empresaid);
