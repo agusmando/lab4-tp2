@@ -48,22 +48,12 @@ const populate = async() => {
             }
         } catch (error) {
             console.error(
-                `Error al obtener datos para el código ${codigo}: ${error.message}`
+                `No existe un país con el código ${codigo}: ${error.message}`
             );
         }
     }
 
     console.log("Proceso completado");
-};
-
-const buildQuery = (filters) {
-    filters.map((filter) => {
-        { region: america } { population: < 10000 } { region: $ne africa }
-    })
-}
-
-const searchCountry = async(filter) => {
-    return daoPais.getOneByFilter({});
 };
 
 module.exports = {
