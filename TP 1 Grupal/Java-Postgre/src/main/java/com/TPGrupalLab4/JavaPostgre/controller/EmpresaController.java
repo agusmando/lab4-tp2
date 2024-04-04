@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.*;
 public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
+
     // METODO ORIGINAL
-    /*@PostMapping
+    @PostMapping
     public Empresa crearEmpresa(@RequestBody Empresa empresa){
         return empresaService.guardarEmpresa(empresa);
-    }*/
+    }
+
+
     // METODO DE PRUEBA PARA PROBAR LA CREACION DE UNA EMPRESA
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Empresa crearEmpresa(@RequestParam String denominacion,
@@ -40,6 +43,8 @@ public class EmpresaController {
 
         return empresaService.guardarEmpresa(empresa);
     }
+
+
 
     // METODO DE PRUEBA PARA INGRESAR LOS DATOS DE UNA EMPRESA A TRAVÉZ DE UN FORM
     // LINK: http://localhost:8080/empresas/empresaPrueba.html
