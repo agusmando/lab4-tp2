@@ -20,7 +20,6 @@ public class Noticia {
     @Enumerated(EnumType.STRING)
     private YesNoEnum Publicada;
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date FechaPublicacion;
     @OneToOne
     @JoinColumn(name = "IdEmpresa")

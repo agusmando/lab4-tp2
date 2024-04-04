@@ -1,8 +1,8 @@
 package com.TPGrupalLab4.JavaPostgre.model;
 
 public enum YesNoEnum {
-    SI("Sí"),
-    NO("No");
+    Y("Y"),
+    N("N");
 
     private final String label;
 
