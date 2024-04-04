@@ -17,7 +17,7 @@ class PaisesDAO {
 
     async getOne(id) {
         try {
-            const paises = await Pais.find(id);
+            const paises = await Pais.findOne(id);
             return paises;
         } catch (error) {
             console.log("error: " + error);

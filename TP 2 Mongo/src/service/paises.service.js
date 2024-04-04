@@ -22,14 +22,14 @@ const populate = async () => {
         const datosJSON = response.data;
 
         if (datosJSON.length > 0) {
-          const { name, capital, region, population, latlng, numericCode } =
+          const { name, capital, region, population, latlng} =
             datosJSON[0];
 
-          const existePais = await daoPais.getOne({ codigoPais: numericCode }); // Buscar país por codigoPais
+          const existePais = await daoPais.getOne({ codigoPais: codigo }); // Buscar país por codigoPais
 
           if (existePais) {
             await daoPais.update(
-              { codigoPais: numericCode },
+              { codigoPais: codigo },
               {
                 nombrePais: name,
                 capitalPais: capital,
@@ -47,7 +47,7 @@ const populate = async () => {
                 poblacion: population,
                 latitud: latlng[0],
                 longitud: latlng[1],
-                codigoPais: numericCode,
+                codigoPais: codigo,
               });
           }
         }
