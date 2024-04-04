@@ -54,6 +54,7 @@ class PaisesDAO {
     async getOneByFilter(filter) {
         try {
             const paises = await Pais.find(filter);
+            return paises;
         } catch (error) {
             console.log("error: " + error);
         }
