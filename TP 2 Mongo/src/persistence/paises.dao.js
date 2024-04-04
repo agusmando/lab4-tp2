@@ -35,7 +35,7 @@ class PaisesDAO {
 
     async update(id, data) {
         try {
-            const paises = await Pais.findByIdAndUpdate(id, data);
+            const paises = await Pais.findOneAndUpdate(id, data);
             return paises;
         } catch (error) {
             console.log("error: " + error);
@@ -46,6 +46,14 @@ class PaisesDAO {
         try {
             const paises = await Pais.findByIdAndDelete(id);
             return paises;
+        } catch (error) {
+            console.log("error: " + error);
+        }
+    }
+
+    async getOneByFilter(filter) {
+        try {
+            const paises = await Pais.find(filter);
         } catch (error) {
             console.log("error: " + error);
         }
