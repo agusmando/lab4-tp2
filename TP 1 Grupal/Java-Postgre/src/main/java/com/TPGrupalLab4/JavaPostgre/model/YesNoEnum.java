@@ -1,5 +1,16 @@
 package com.TPGrupalLab4.JavaPostgre.model;
 
 public enum YesNoEnum {
-    Y, N
+    SI("Sí"),
+    NO("No");
+
+    private final String label;
+
+    YesNoEnum(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
 }

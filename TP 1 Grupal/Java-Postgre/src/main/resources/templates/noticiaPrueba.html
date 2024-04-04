@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear/Editar Noticia</title>
+</head>
+<body>
+<h1>Crear/Editar Noticia</h1>
+
+<form method="post" action="/noticias" enctype="application/x-www-form-urlencoded">
+
+    <label for="titulo">Título:</label><br>
+    <input type="text" id="titulo" name="titulo"><br>
+
+    <label for="resumen">Resumen:</label><br>
+    <textarea id="resumen" name="resumen"></textarea><br>
+
+    <label for="imagen">URL de la Imagen:</label><br>
+    <input type="text" id="imagen" name="imagen"><br>
+
+    <label for="contenido">Contenido HTML:</label><br>
+    <input type="text" id="contenido" name="contenido"><br>
+
+    <label for="publicada">¿Publicada?:</label><br>
+    <select id="publicada" name="publicada">
+        <option value="SI">Sí</option>
+        <option value="NO">No</option>
+    </select><br>
+
+    <label for="fechaPublicacion">Fecha de Publicación:</label><br>
+    <input th:type="date" id="fechaPublicacion" th:name="fechaPublicacion"><br>
+
+    <label for="empresa">Empresa:</label><br>
+    <select id="empresa" name="empresa">
+        <option value="">Selecciona una empresa</option>
+        <option th:each="empresa : ${empresas}" th:value="${empresa.getId()}" th:text="${empresa.getDenominacion()}"></option>
+    </select><br>
+
+    <input type="submit" value="Guardar">
+</form>
+</body>
+</html>

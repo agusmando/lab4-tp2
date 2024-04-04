@@ -22,11 +22,9 @@ public class NoticiaService {
     public Noticia buscarNoticiaPorID(int id){
         Optional<Noticia> optionalNoticia= noticiaRepository.findById(id);
         return optionalNoticia.orElse(null);
-
-
     }
 
-     public List<Noticia> obtenerNoticias(){
+    public List<Noticia> obtenerNoticias(){
         return noticiaRepository.findAll();
     }
 
@@ -36,12 +34,11 @@ public class NoticiaService {
 
     public Noticia actualizarNoticia(int id, Noticia noticiaActualizada){
         Noticia noticia= buscarNoticiaPorID(id);
-
         if (noticia == null){
             System.out.println("No se encontro la noticia por Id");
             return null;
         }else{
-            return noticiaActualizada;
+            return noticia;
         }
     }
 }
