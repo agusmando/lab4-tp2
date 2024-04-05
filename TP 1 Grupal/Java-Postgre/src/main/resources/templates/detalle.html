@@ -49,7 +49,7 @@
             <div class="help-box text-right">
                 <p>Telefono</p>
                 <a href="callto:#" th:text="${noticias.get(0).getIdEmpresa().getTelefono()}"></a>
-                <small><span>Horario:</span > 6am-4pm PST M-Th; &nbsp;6am-3pm PST Fri</small>
+                <small><span>Horario:</span > <span th:text="${noticias.get(0).getIdEmpresa().getHorarioAtencion()}"> PST M-Th; &nbsp;6am-3pm PST Fri</span></small>
             </div>
         </div>
 
@@ -59,10 +59,10 @@
                     <div class="">
                         <ul class="nav navbar-nav sf-menu sf-js-enabled sf-arrows" data-type="navbar">
                             <li style="list-style: none;" class="active">
-                                <a href="home.html">INICIO</a>
+                                <a href="/empresas/listaEmpresas">INICIO</a>
                             </li>
                             <li style="list-style: none;">
-                                <a href="./">LISTA EMPRESAS</a>
+                                <a href="/empresas/listaEmpresas">LISTA EMPRESAS</a>
                             </li>
                         </ul>
                     </div>
@@ -91,25 +91,25 @@
             <div class="container">
                 <center>
                     <div id="imagenPrincipal" style="height: 450px; background-image: url('/static/images/page-1_slide1.jpg?1583775512626'); background-repeat: no-repeat;background-size: cover;">
-                        <div style="text-align:left; background-color: rgba(1,1,1,0.5);color: #ffffff;font-size: 16px;line-height: 50px;">
+                        <div style="text-align:left; background-color: rgba(1,1,1,0.5);color: #ffffff;font-size: 16px;line-height: 50px;" th:text="${noticias.get(0).getTitulo()}">
                             Titulo de la Noticia
                         </div>
                     </div>
                 </center>
-                <h2>
+                <h2 th:text="${noticias.get(0).getTitulo()}">
                     Titulo de la Noticia
                 </h2>
-                Fecha Publicacion: 12/02/2020
+                Publicacion:<span th:text="${noticias.get(0).getFechaPublicacion()}"></span>
                 <hr>
                 <div class="row offs2">
 
                     <div class="col-lg-12">
                         <dl class="terms-list">
-                            <dt>
+                            <dt th:text="${noticias.get(0).getResumen()}">
                                 Resumen de la noticia
                             </dt>
                             <hr>
-                            <dd>
+                            <dd th:utext="${noticias.get(0).getContenidoHTML()}">
                                 Contenido HTML de la Noticia
                             </dd>
                         </dl>
@@ -127,7 +127,7 @@
     <footer>
         <section class="well">
             <div class="container">
-                <p class="rights">
+                <p class="rights" th:text="${noticias.get(0).getIdEmpresa().getDenominacion()}">
                     Denominación Empresa  &#169; <span id="copyright-year"></span>
                     <a href="index-5.html">Privacy Policy</a>
                     <!-- {%FOOTER_LINK} -->
