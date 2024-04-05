@@ -9,6 +9,6 @@ const {
 
 router.route("/").get(getPaises);
 router.route("/populate").get(savePaises);
-router.route("/search/:filter").get(searchPaises);
+router.route("/search").get(searchPaises);
 
 module.exports = router;

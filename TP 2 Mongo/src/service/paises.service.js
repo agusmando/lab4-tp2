@@ -55,13 +55,12 @@ const populate = async() => {
 
     console.log("Proceso completado");
 };
-
-const searchPaises = (filters) => {
+const buildQuery = (filters) => {
     const query = {};
-    filters = ["region:Americas", "population:>100000000"];
-    //region: americas no se está transformando en {region: Americas}
-    filters.forEach((filter) => {
-        const [key, value] = filter.split(":"); // Dividir el filtro en clave y valor
+
+    // Iterar sobre las claves del objeto de filtros
+    Object.keys(filters).forEach((key) => {
+        const value = filters[key];
 
         // Agregar la condición al filtro
         if (value.startsWith(">")) {
@@ -72,7 +71,15 @@ const searchPaises = (filters) => {
             query[key] = value;
         }
     });
-    const paises = daoPais.getOneByFilter(query);
+    return query;
+};
+
+const searchPaises = async(filters) => {
+    // Probar ruta usando el formato http://localhost:8080/paises/search?region=Americas&poblacion:>100000000
+
+    const query = buildQuery(filters);
+    console.log(query);
+    const paises = await daoPais.getOneByFilter(query);
     return paises;
 };
 

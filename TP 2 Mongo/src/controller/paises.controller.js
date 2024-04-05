@@ -20,8 +20,8 @@ const savePaises = async(req, res) => {
 
 const searchPaises = async(req, res) => {
     try {
-        const { filter } = req.params;
-        const paises = await servicePaises.searchPaises(filter);
+        const filters = req.query;
+        const paises = await servicePaises.searchPaises(filters);
         res.status(200).json({ paises });
     } catch (error) {
         console.log("error: " + error);
