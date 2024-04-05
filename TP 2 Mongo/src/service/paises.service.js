@@ -103,6 +103,7 @@ const searchPaises = async (filters) => {
 // http://localhost:8080/paises/search?region=Americas
 // http://localhost:8080/paises/search?region=Americas&poblacion=>100000000
 // http://localhost:8080/paises/search?region=$ne:Africa
+// http://localhost:8080/paises/search?poblacion=>50000000&poblacion<=150000000 NO FUNCIONA
 
 const deletePaises = async (id) => {
   await daoPais.delete({ codigoPais: id });
