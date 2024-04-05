@@ -8,7 +8,8 @@ class PaisesDAO {
 
     async getAll() {
         try {
-            const paises = await Pais.find();
+            const paises = await Pais.find().sort({ nombrePais: 1 }); // Ordena por nombrePais ascendente.
+            console.log(paises);
             return paises;
         } catch (error) {
             console.log("error: " + error);
