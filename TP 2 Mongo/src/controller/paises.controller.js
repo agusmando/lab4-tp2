@@ -9,6 +9,15 @@ const getPaises = async(req, res) => {
     }
 };
 
+const getOnePaises = async(req, res) => {
+    try {
+        const paises = await servicePaises.getOne(req.params["codigo"]);
+        res.status(200).json({ paises });
+    } catch (error) {
+        console.log("error: " + error);
+    }
+}
+
 const savePaises = async(req, res) => {
     try {
         await servicePaises.populate();
@@ -28,4 +37,13 @@ const searchPaises = async(req, res) => {
     }
 };
 
-module.exports = { getPaises, savePaises, searchPaises };
+const deletePaises = async(req, res) => {
+    try {
+        await servicePaises.deletePaises(req.params["codigo"]);
+        res.status(200).json({ message: "Pais eliminado" });
+    } catch (error) {
+        console.log("error: " + error);
+    }
+};
+
+module.exports = { getPaises, getOnePaises, savePaises, searchPaises, deletePaises };

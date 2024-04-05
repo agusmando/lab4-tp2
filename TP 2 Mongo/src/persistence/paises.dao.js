@@ -44,8 +44,7 @@ class PaisesDAO {
 
     async delete(id) {
         try {
-            const paises = await Pais.findByIdAndDelete(id);
-            return paises;
+            await Pais.findOneAndDelete(id);
         } catch (error) {
             console.log("error: " + error);
         }

@@ -3,88 +3,114 @@ const DaoPaises = require("../persistence/paises.dao.js");
 const daoPais = new DaoPaises();
 const axios = require("axios");
 
-const getAll = async() => {
-    try {
-        const paises = await daoPais.getAll();
-        return paises;
-    } catch (error) {
-        console.log("error: " + error);
-    }
+const getAll = async () => {
+  try {
+    const paises = await daoPais.getAll();
+    return paises;
+  } catch (error) {
+    console.log("error: " + error);
+  }
 };
 
-const populate = async() => {
-    for (let codigo = 1; codigo <= 300; codigo++) {
-        const url = `https://restcountries.com/v2/callingcode/${codigo}`;
+const getOne = async (id) => {
+  try {
+    const paises = await daoPais.getOne({ codigoPais: id });
+    return paises;
+  } catch (error) {
+    console.log("error: " + error);
+  }
+};
 
-        try {
-            const response = await axios.get(url);
-            const datosJSON = response.data;
+const populate = async () => {
+  for (let codigo = 1; codigo <= 300; codigo++) {
+    const url = `https://restcountries.com/v2/callingcode/${codigo}`;
 
-            if (datosJSON.length > 0) {
-                const { name, capital, region, population, latlng } = datosJSON[0];
+    try {
+      const response = await axios.get(url);
+      const datosJSON = response.data;
 
-                const existePais = await daoPais.getOne({ codigoPais: codigo }); // Buscar país por codigoPais
+      if (datosJSON.length > 0) {
+        const { name, capital, region, population, latlng } = datosJSON[0];
 
-                if (existePais) {
-                    await daoPais.update({ codigoPais: codigo }, {
-                        nombrePais: name,
-                        capitalPais: capital,
-                        region: region,
-                        poblacion: population,
-                        latitud: latlng[0],
-                        longitud: latlng[1],
-                    });
-                } else {
-                    await daoPais.create({
-                        nombrePais: name,
-                        capitalPais: capital,
-                        region: region,
-                        poblacion: population,
-                        latitud: latlng[0],
-                        longitud: latlng[1],
-                        codigoPais: codigo,
-                    });
-                }
+        const existePais = await daoPais.getOne({ codigoPais: codigo }); // Buscar país por codigoPais
+
+        if (existePais) {
+          await daoPais.update(
+            { codigoPais: codigo },
+            {
+              nombrePais: name,
+              capitalPais: capital,
+              region: region,
+              poblacion: population,
+              latitud: latlng[0],
+              longitud: latlng[1],
             }
-        } catch (error) {
-            console.error(
-                `No existe un país con el código ${codigo}: ${error.message}`
-            );
+          );
+        } else {
+          await daoPais.create({
+            nombrePais: name,
+            capitalPais: capital,
+            region: region,
+            poblacion: population,
+            latitud: latlng[0],
+            longitud: latlng[1],
+            codigoPais: codigo,
+          });
         }
+      }
+    } catch (error) {
+      console.error(
+        `No existe un país con el código ${codigo}: ${error.message}`
+      );
     }
+  }
 
-    console.log("Proceso completado");
+  console.log("Proceso completado");
 };
 const buildQuery = (filters) => {
-    const query = {};
+  const query = {};
 
-    // Iterar sobre las claves del objeto de filtros
-    Object.keys(filters).forEach((key) => {
-        const value = filters[key];
+  // Iterar sobre las claves del objeto de filtros
+  Object.keys(filters).forEach((key) => {
+    const value = filters[key];
 
-        // Agregar la condición al filtro
-        if (value.startsWith(">")) {
-            query[key] = { $gt: parseInt(value.slice(1)) };
-        } else if (value.startsWith("$ne")) {
-            query[key] = { $ne: value.slice(4) };
-        } else {
-            query[key] = value;
-        }
-    });
-    return query;
+    // Agregar la condición al filtro
+    if (value.startsWith(">")) {
+      query[key] = { $gt: parseInt(value.slice(1)) };
+    } else if (value.startsWith("<")) {
+      query[key] = { $lt: parseInt(value.slice(1)) };
+    } else if (value.includes(">=")) {
+      const [from, to] = value.split(">=");
+      query[key] = { $gte: parseInt(from), $lt: parseInt(to) };
+    } else if (value.includes("<=")) {
+      const [from, to] = value.split("<=");
+      query[key] = { $gt: parseInt(from), $lte: parseInt(to) };
+    } else if (value.startsWith("$ne")) {
+      query[key] = { $ne: value.slice(4) };
+    } else {
+      query[key] = value;
+    }
+  });
+  return query;
 };
 
-const searchPaises = async(filters) => {
-    // Probar ruta usando el formato http://localhost:8080/paises/search?region=Americas&poblacion:>100000000
+const searchPaises = async (filters) => {
+  // Probar ruta usando el formato http://localhost:8080/paises/search?region=Americas&poblacion=>100000000
 
-    const query = buildQuery(filters);
-    console.log(query);
-    const paises = await daoPais.getOneByFilter(query);
-    return paises;
+  const query = buildQuery(filters);
+  console.log(query);
+  const paises = await daoPais.getOneByFilter(query);
+  return paises;
+};
+
+const deletePaises = async (id) => {
+  await daoPais.delete({ codigoPais: id });
 };
 
 module.exports = {
-    getAll,
-    populate,
-    searchPaises,
+  getAll,
+  getOne,
+  populate,
+  searchPaises,
+  deletePaises,
 };
