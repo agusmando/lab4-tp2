@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,8 @@ public class NoticiaController {
 
         try {
             if (!imagen.isEmpty()) {
-                byte[] imageData = imagen.getBytes();
+                String imageData = imagen.getOriginalFilename();
+                imagen.transferTo(new File("/static/images"+imageData));
                 noticia.setImagen(imageData);
             }
         } catch (IOException e) {
@@ -77,6 +79,8 @@ public class NoticiaController {
     }
     @GetMapping("/eliminarNoticia/{id}")
     public String eliminarNoticia(@PathVariable int id) {
+        Noticia noticia = noticiaService.buscarNoticiaPorID(id);
+
         noticiaService.eliminarNoticia(id);
         return "redirect:/empresas/listaEmpresas";
     }
@@ -119,7 +123,10 @@ public class NoticiaController {
         // Verificar si se ha proporcionado una nueva imagen
         try {
             if (!Imagen.isEmpty()) {
-                byte[] imageData = Imagen.getBytes();
+                String imageData = Imagen.getOriginalFilename();
+                Imagen.transferTo(new File("/static/images"+imageData));
+                File imagenVieja = new File("/static/images"+noticia.getImagen());
+                imagenVieja.delete();
                 noticia.setImagen(imageData);
             }
         } catch (IOException e) {
