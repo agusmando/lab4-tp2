@@ -90,7 +90,8 @@ public class EmpresaController {
         model.addAttribute("empresa", empresa);
         List<Noticia> noticias = noticiaService.encontrarNoticiasPorEmpresa(id);
         List <BufferedImage> imagenes = new ArrayList<>();
-        for (Noticia noticia: noticias) {
+        for (Noticia noticia: noticias
+             ) {
             imagenes.add(ImageIO.read(new ByteArrayInputStream(noticia.getImagen())));
         }
         model.addAttribute("noticias", noticias);
