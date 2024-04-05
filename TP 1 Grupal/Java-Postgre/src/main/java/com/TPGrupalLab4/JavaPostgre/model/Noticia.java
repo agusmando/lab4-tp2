@@ -15,13 +15,13 @@ public class Noticia {
     private int Id;
     private String Titulo;
     private String Resumen;
-    private String Imagen;
+    private byte[] Imagen;
     private String ContenidoHTML;
     @Enumerated(EnumType.STRING)
     private YesNoEnum Publicada;
     @Temporal(TemporalType.DATE)
     private Date FechaPublicacion;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "IdEmpresa")
     private Empresa IdEmpresa;
 

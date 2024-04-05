@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -31,25 +33,35 @@ public class NoticiaController {
         return empresaNoticia.guardarNoticia(noticia);
     }*/
     // METODO DE PRUEBA PARA PROBAR LA CREACION DE UNA NOTICIA
-    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Noticia crearNoticia(@RequestParam String titulo,
                                 @RequestParam String resumen,
-                                @RequestParam String imagen,
+                                @RequestParam MultipartFile imagen,
                                 @RequestParam String contenido,
                                 @RequestParam YesNoEnum publicada,
                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fechaPublicacion,
                                 @RequestParam int empresaid) {
-       // System.out.println("Datos de la PETICION: titulo:"+titulo+" resumen: "+resumen+" imagen "+imagen+" contenido "+contenido+" publicada "+publicada+" fechaPublicacion: "+fechaPublicacion+" empresaId: "+empresaid);
+        // System.out.println("Datos de la PETICION: titulo:"+titulo+" resumen: "+resumen+" imagen "+imagen+" contenido "+contenido+" publicada "+publicada+" fechaPublicacion: "+fechaPublicacion+" empresaId: "+empresaid);
         Empresa empresa = empresaService.buscarEmpresaPorID(empresaid);
 
         Noticia noticia = new Noticia();
         noticia.setTitulo(titulo);
         noticia.setResumen(resumen);
-        noticia.setImagen(imagen);
+
+        try {
+            if (!imagen.isEmpty()) {
+                byte[] imageData = imagen.getBytes();
+                noticia.setImagen(imageData);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al guardar la imagen");
+        }
+
         noticia.setContenidoHTML(contenido);
         noticia.setPublicada(publicada);
         noticia.setFechaPublicacion(fechaPublicacion);
         noticia.setIdEmpresa(empresa);
+
         return noticiaService.guardarNoticia(noticia);
     }
 
