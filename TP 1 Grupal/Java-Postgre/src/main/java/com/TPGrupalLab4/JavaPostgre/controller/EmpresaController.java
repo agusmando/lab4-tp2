@@ -74,6 +74,18 @@ public class EmpresaController {
     public String mostrarEmpresa(@PathVariable int id, Model model){
         Empresa empresa = empresaService.buscarEmpresaPorID(id);
         model.addAttribute("empresa", empresa);
+        List<Noticia> noticias = noticiaService.encontrarNoticiasPorEmpresa(id);
+        model.addAttribute("noticias", noticias);
         return "home";
     }
+
+    @GetMapping("/home/detalle/{id}")
+    public String mostrarNoticia(@PathVariable int id, Model model){
+        Empresa empresa = empresaService.buscarEmpresaPorID(id);
+        model.addAttribute("empresa", empresa);
+        List<Noticia> noticias = noticiaService.encontrarNoticiasPorEmpresa(id);
+        model.addAttribute("noticias", noticias);
+        return "detalle";
+    }
+
 }

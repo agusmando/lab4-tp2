@@ -30,11 +30,11 @@ function isIE() {
 
 /* cookie.JS
  ========================================================*/
-include('js/jquery.cookie.js');
+include('/static/js/jquery.cookie.js');
 
 /* Easing library
  ========================================================*/
-include('js/jquery.easing.1.3.js');
+include('/static/js/jquery.easing.1.3.js');
 
 
 /* Stick up menus
@@ -43,7 +43,7 @@ include('js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('html');
     if (o.hasClass('desktop')) {
-        include('js/tmstickup.js');
+        include('/static/js/tmstickup.js');
 
         $(document).ready(function () {
             $('#stuck_container').TMStickUp({})
@@ -57,7 +57,7 @@ include('js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('html');
     if (o.hasClass('desktop')) {
-        include('js/jquery.ui.totop.js');
+        include('/static/js/jquery.ui.totop.js');
 
         $(document).ready(function () {
             $().UItoTop({easingType: 'easeOutQuart'});
@@ -71,7 +71,7 @@ include('js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('[data-equal-group]');
     if (o.length > 0) {
-        include('js/jquery.equalheights.js');
+        include('/static/js/jquery.equalheights.js');
     }
 })(jQuery);
 
@@ -93,7 +93,7 @@ include('js/jquery.easing.1.3.js');
 ;
 (function ($) {
     function include(url) {
-	document.write('<script src="js/' + url + '"></script>');
+	document.write('<script src="/static/js/' + url + '"></script>');
 	return false;
 }
 	include('superfish.js');
@@ -109,7 +109,7 @@ include('js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('.resp-tabs');
     if (o.length > 0) {
-        include('js/jquery.responsive.tabs.js');
+        include('/static/js/jquery.responsive.tabs.js');
 
         $(document).ready(function () {
             o.easyResponsiveTabs();
@@ -123,7 +123,7 @@ include('js/jquery.easing.1.3.js');
  ========================================================*/
 ;
 (function ($) {
-    include('js/jquery.rd-navbar.js');
+    include('/static/js/jquery.rd-navbar.js');
 })(jQuery);
 
 
@@ -135,7 +135,7 @@ include('js/jquery.easing.1.3.js');
 (function ($) {
     var o = $('.accordion');
     if (o.length > 0) {
-        include('js/jquery.ui.accordion.min.js');
+        include('/static/js/jquery.ui.accordion.min.js');
 
         $(document).ready(function () {
             o.accordion({
@@ -156,7 +156,7 @@ include('js/jquery.easing.1.3.js');
     var o = document.getElementById("google-map");
     if (o) {
         include('//maps.google.com/maps/api/js?sensor=false');
-        include('js/jquery.rd-google-map.js');
+        include('/static/js/jquery.rd-google-map.js');
 
         $(document).ready(function () {
             var o = $('#google-map');
@@ -288,7 +288,7 @@ include('js/jquery.easing.1.3.js');
 ;(function ($) {
     var o = $('.owl-carousel');
     if (o.length > 0) {
-        include('js/owl.carousel.min.js');
+        include('/static/js/owl.carousel.min.js');
         $(document).ready(function () {
             o.owlCarousel({
                 margin: 30,
@@ -317,7 +317,7 @@ include('js/jquery.easing.1.3.js');
 
     if ((navigator.userAgent.toLowerCase().indexOf('msie') == -1 ) || (isIE() && isIE() > 9)) {
         if (o.hasClass('desktop')) {
-            include('js/wow.js');
+            include('/static/js/wow.js');
 
             $(document).ready(function () {
                 new WOW().init();
@@ -382,10 +382,10 @@ document.write('<meta name="viewport" content="width=device-width,initial-scale=
 var o = $('#camera');
     if (o.length > 0) {
         if (!(isIE() && (isIE() > 9))) {
-            include('js/jquery.mobile.customized.min.js');
+            include('/static/js/jquery.mobile.customized.min.js');
         }
 
-        include('js/camera.js');
+        include('/static/js/camera.js');
 
         $(document).ready(function () {
             o.camera({
@@ -412,7 +412,7 @@ var o = $('#camera');
 (function ($) {
     var o = $('.search-form');
     if (o.length > 0) {
-        include('js/TMSearch.js');
+        include('/static/js/TMSearch.js');
     }
 })(jQuery);  
 
@@ -426,8 +426,8 @@ var o = $('#camera');
 (function ($) {
     var o = $('#contact-form');
     if (o.length > 0) {
-        include('js/modal.js');
-        include('js/TMForm.js'); 
+        include('/static/js/modal.js');
+        include('/static/js/TMForm.js');
 
         if($('#contact-form .recaptcha').length > 0){
             include('//www.google.com/recaptcha/api/js/recaptcha_ajax.js');
@@ -493,9 +493,9 @@ o
 ;(function ($) {
     var o = $('.thumb');
     if (o.length > 0) {
-        include('js/jquery.fancybox.js');
-        include('js/jquery.fancybox-media.js');
-        include('js/jquery.fancybox-buttons.js');
+        include('/static/js/jquery.fancybox.js');
+        include('/static/js/jquery.fancybox-media.js');
+        include('/static/js/jquery.fancybox-buttons.js');
         $(document).ready(function () {
             o.fancybox();
         });
@@ -505,7 +505,7 @@ o
 /* Parallax
 =============================================*/
 ;(function ($) {
-    include('js/jquery.rd-parallax.js');
+    include('/static/js/jquery.rd-parallax.js');
 })(jQuery); 
 
 

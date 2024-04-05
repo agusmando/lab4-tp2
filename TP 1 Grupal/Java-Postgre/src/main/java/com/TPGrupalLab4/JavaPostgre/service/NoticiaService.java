@@ -6,6 +6,7 @@ import com.TPGrupalLab4.JavaPostgre.repository.NoticiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +51,16 @@ public class NoticiaService {
                 eliminarNoticia(noticia.getId());
             }
         }
+    }
+
+    public List<Noticia> encontrarNoticiasPorEmpresa(int idEmpresa){
+        List<Noticia> noticias = noticiaRepository.findAll();
+        List<Noticia> noticiasFiltradas = new ArrayList<>();
+        for (Noticia noticia: noticias) {
+            if(idEmpresa == noticia.getIdEmpresa().getId()){
+                noticiasFiltradas.add(noticia);
+            }
+        }
+        return noticiasFiltradas;
     }
 }

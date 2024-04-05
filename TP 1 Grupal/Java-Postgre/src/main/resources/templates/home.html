@@ -42,15 +42,15 @@
       <div class="container top-sect">
         <div class="navbar-header">
           <h1 class="navbar-brand">
-            <a data-type='rd-navbar-brand'  href="./"><small>Denominación <br>Empresa</small></a>
+            <a data-type='rd-navbar-brand'  href="./" ><small>Denominación <br th:text="${empresa.getDenominacion()}"></small></a>
           </h1>
           <a class="search-form_toggle" href="#"></a>
         </div>
 
         <div class="help-box text-right">
           <p>Telefono</p>
-          <a href="callto:#">800-2345-6789</a>
-          <small><span>Horario:</span>  6am-4pm PST M-Th; &nbsp;6am-3pm PST Fri</small>
+          <a href="callto:#" th:text="${empresa.getTelefono()}"></a>
+          <small><span>Horario:</span>  <span th:text="${empresa.getHorarioAtencion()}"></span></small>
         </div>
       </div>
      
@@ -60,10 +60,10 @@
 				<div class="">  
 				  <ul class="nav navbar-nav sf-menu sf-js-enabled sf-arrows" data-type="navbar">
 					<li style="list-style: none;" class="active">
-					  <a href="home.html">INICIO</a>
+					  <a href="/empresas/listaEmpresas">INICIO</a>
 					</li>
 					<li style="list-style: none;">
-					  <a href="./">LISTA EMPRESAS</a>
+					  <a href="/empresas/listaEmpresas">LISTA EMPRESAS</a>
 					</li>
 				  </ul>                           
 				</div>
@@ -91,29 +91,29 @@
       <section class="well well1 well1_ins1">
         <div class="camera_container">
           <div id="camera" class="camera_wrap">
-            <div data-src="images/page-1_slide1.jpg">
+            <div data-src="/static/images/page-1_slide1.jpg" th:src="${noticias.get(0).getImagen()}">
               <div class="camera_caption fadeIn">
                 <div class="jumbotron jumbotron1">
                   <em>
-                    <a href="detalle.html">Titulo Noticia</a>
+                    <a th:href="@{/empresas/home/detalle/{id}(id=${noticias.get(0).getId()})}" th:text="${noticias.get(0).getTitulo()}">Titulo Noticia</a>
                   </em>
                   <div class="wrap">
-                    <p>
+                    <p th:text="${noticias.get(0).getResumen()}">
                       Resumen
                     </p>
-                    <a href="detalle.html" class="btn-link fa-angle-right"></a>
+                    <a th:href="@{/empresas/home/detalle/{id}(id=${noticias.get(0).getId()})}" class="btn-link fa-angle-right"></a>
                   </div>  
                 </div>
               </div>
             </div>
-            <div data-src="images/page-1_slide2.jpg">
+            <div data-src="/static/images/page-1_slide2.jpg">
               <div class="camera_caption fadeIn">
                 <div class="jumbotron jumbotron2">
-                  <em>
+                  <em th:text="${noticias.get(1).getTitulo()}">
                     Titulo Noticia
                   </em>
                   <div class="wrap">
-                    <p>
+                    <p th:text="${noticias.get(1).getResumen()}">
                       Resumen
                     </p>
                     <a href="#" class="btn-link hov_prime fa-angle-right"></a>
@@ -121,14 +121,14 @@
                 </div>
               </div>
             </div>
-            <div data-src="images/page-1_slide3.jpg">
+            <div data-src="/static/images/page-1_slide3.jpg">
               <div class="camera_caption fadeIn">
                 <div class="jumbotron">
-                  <em>
+                  <em th:text="${noticias.get(2).getTitulo()}">
                     Titulo Noticia
                   </em>
                   <div class="wrap">
-                    <p>
+                    <p th:text="${noticias.get(2).getResumen()}">
                       Resumen
                     </p>
                     <a href="#" class="btn-link fa-angle-right"></a>
@@ -148,7 +148,7 @@
         </h2>
           <div class="row">
             <div class="col">
-              <p style="text-align:justify">
+              <p style="text-align:justify" th:text="${empresa.getQuienesSomos()}">
                 Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt. Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
