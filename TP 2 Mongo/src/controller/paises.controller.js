@@ -16,7 +16,7 @@ const getOnePaises = async(req, res) => {
     } catch (error) {
         console.log("error: " + error);
     }
-}
+};
 
 const savePaises = async(req, res) => {
     try {
@@ -46,4 +46,19 @@ const deletePaises = async(req, res) => {
     }
 };
 
-module.exports = { getPaises, getOnePaises, savePaises, searchPaises, deletePaises };
+const updatePais = async(req, res) => {
+    try {
+        await servicePaises.updatePais(req.query, req.body);
+        res.status(200).json({ message: "Actualizado correctamente" });
+    } catch (error) {
+        console.log("error: " + error);
+    }
+};
+module.exports = {
+    getPaises,
+    getOnePaises,
+    savePaises,
+    searchPaises,
+    deletePaises,
+    updatePais,
+};
