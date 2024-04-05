@@ -36,7 +36,7 @@ public class EmpresaService {
             System.out.println("No se encontro la empresa con ese ID");
             return null;
         }else{
-            empresa = empresaActualizada;
+            empresa = empresaRepository.save(empresaActualizada);
             return empresa;
         }
     }
