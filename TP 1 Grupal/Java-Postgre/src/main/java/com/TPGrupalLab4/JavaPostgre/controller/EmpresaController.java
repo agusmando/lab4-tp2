@@ -1,9 +1,12 @@
 package com.TPGrupalLab4.JavaPostgre.controller;
 
 import com.TPGrupalLab4.JavaPostgre.model.Empresa;
+import com.TPGrupalLab4.JavaPostgre.model.Noticia;
 import com.TPGrupalLab4.JavaPostgre.service.EmpresaService;
+import com.TPGrupalLab4.JavaPostgre.service.NoticiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,41 +16,25 @@ import java.util.List;
 @Controller
 @RequestMapping("/empresas")
 public class EmpresaController {
+
     @Autowired
     private EmpresaService empresaService;
+    @Autowired
+    private NoticiaService noticiaService;
+
+    //BUENA PRACTICA
+    /*private final EmpresaService empresaService;
+
+    public EmpresaController(EmpresaService empresaService) {
+        this.empresaService = empresaService;
+    }*/
 
     // METODO ORIGINAL
     @PostMapping
-    public Empresa crearEmpresa(@RequestBody Empresa empresa){
-        return empresaService.guardarEmpresa(empresa);
+    public String crearEmpresa(Empresa empresa){
+        empresaService.guardarEmpresa(empresa);
+        return "redirect:/empresas/listaEmpresas";
     }
-
-
-    // METODO DE PRUEBA PARA PROBAR LA CREACION DE UNA EMPRESA
-    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Empresa crearEmpresa(@RequestParam String denominacion,
-                                @RequestParam String domicilio,
-                                @RequestParam String email,
-                                @RequestParam double latitud,
-                                @RequestParam double longitud,
-                                @RequestParam String horarioAtencion,
-                                @RequestParam String quienesSomos,
-                                @RequestParam String telefono) {
-
-        Empresa empresa = new Empresa();
-        empresa.setDenominacion(denominacion);
-        empresa.setDomicilio(domicilio);
-        empresa.setEmail(email);
-        empresa.setLatitud(latitud);
-        empresa.setLongitud(longitud);
-        empresa.setHorarioAtencion(horarioAtencion);
-        empresa.setQuienesSomos(quienesSomos);
-        empresa.setTelefono(telefono);
-
-        return empresaService.guardarEmpresa(empresa);
-    }
-
-
 
     // METODO DE PRUEBA PARA INGRESAR LOS DATOS DE UNA EMPRESA A TRAVÉZ DE UN FORM
     // LINK: http://localhost:8080/empresas/empresaPrueba.html
@@ -60,7 +47,33 @@ public class EmpresaController {
     public String mostrarListaEmpresas(Model model){
         List<Empresa> empresas = empresaService.obtenerEmpresas();
         model.addAttribute("empresas", empresas);
+        List<Noticia> noticias = noticiaService.obtenerNoticias();
+        model.addAttribute("noticias", noticias);
 
         return "index";
+    }
+    @GetMapping("/eliminarEmpresa/{id}")
+    public String eliminarEmpresa(@PathVariable int id) {
+        noticiaService.eliminarNoticiaPorEmpresa(id);
+        empresaService.eliminarEmpresa(id);
+        return "redirect:/empresas/listaEmpresas";
+    }
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable int id, Model model) {
+        Empresa empresa = empresaService.buscarEmpresaPorID(id);
+        model.addAttribute("empresa", empresa);
+        return "formulario-edicion"; // Nombre del archivo HTML del formulario de edición
+    }
+    @PostMapping("/actualizar")
+    public String actualizarEmpresa(Empresa empresa){
+        empresaService.actualizarEmpresa(empresa.getId(), empresa);
+        return "redirect:/empresas/listaEmpresas";
+    }
+
+    @GetMapping("/home/{id}")
+    public String mostrarEmpresa(@PathVariable int id, Model model){
+        Empresa empresa = empresaService.buscarEmpresaPorID(id);
+        model.addAttribute("empresa", empresa);
+        return "home";
     }
 }

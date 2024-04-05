@@ -38,7 +38,17 @@ public class NoticiaService {
             System.out.println("No se encontro la noticia por Id");
             return null;
         }else{
+            noticia = noticiaRepository.save(noticiaActualizada);
             return noticia;
+        }
+    }
+
+    public void eliminarNoticiaPorEmpresa(int idEmpresa){
+        List<Noticia> noticias = noticiaRepository.findAll();
+        for (Noticia noticia: noticias) {
+            if(idEmpresa == noticia.getIdEmpresa().getId()){
+                eliminarNoticia(noticia.getId());
+            }
         }
     }
 }
