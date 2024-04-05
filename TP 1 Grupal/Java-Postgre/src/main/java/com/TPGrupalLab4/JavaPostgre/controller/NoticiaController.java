@@ -33,7 +33,7 @@ public class NoticiaController {
         return empresaNoticia.guardarNoticia(noticia);
     }*/
     // METODO DE PRUEBA PARA PROBAR LA CREACION DE UNA NOTICIA
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/guardar",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String crearNoticia(@RequestParam String titulo,
                                 @RequestParam String resumen,
                                 @RequestParam MultipartFile imagen,

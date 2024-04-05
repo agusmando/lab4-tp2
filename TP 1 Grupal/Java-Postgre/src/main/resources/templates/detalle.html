@@ -41,15 +41,15 @@
         <div class="container top-sect">
             <div class="navbar-header">
                 <h1 class="navbar-brand">
-                    <a data-type='rd-navbar-brand'  href="./"><small>Denominación <br>Empresa</small></a>
+                    <a data-type='rd-navbar-brand'  href="./"><small>Denominación <br th:text="${noticias.get(0).getIdEmpresa().getDenominacion()}"></small></a>
                 </h1>
                 <a class="search-form_toggle" href="#"></a>
             </div>
 
             <div class="help-box text-right">
                 <p>Telefono</p>
-                <a href="callto:#" >800-2345-6789</a>
-                <small><span>Horario:</span>  6am-4pm PST M-Th; &nbsp;6am-3pm PST Fri</small>
+                <a href="callto:#" th:text="${noticias.get(0).getIdEmpresa().getTelefono()}"></a>
+                <small><span>Horario:</span > 6am-4pm PST M-Th; &nbsp;6am-3pm PST Fri</small>
             </div>
         </div>
 

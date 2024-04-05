@@ -11,6 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -80,11 +85,17 @@ public class EmpresaController {
     }
 
     @GetMapping("/home/detalle/{id}")
-    public String mostrarNoticia(@PathVariable int id, Model model){
+    public String mostrarNoticia(@PathVariable int id, Model model) throws IOException {
         Empresa empresa = empresaService.buscarEmpresaPorID(id);
         model.addAttribute("empresa", empresa);
         List<Noticia> noticias = noticiaService.encontrarNoticiasPorEmpresa(id);
+        List <BufferedImage> imagenes = new ArrayList<>();
+        for (Noticia noticia: noticias
+             ) {
+            imagenes.add(ImageIO.read(new ByteArrayInputStream(noticia.getImagen())));
+        }
         model.addAttribute("noticias", noticias);
+        model.addAttribute("imagenes", imagenes);
         return "detalle";
     }
 
