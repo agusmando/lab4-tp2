@@ -28,6 +28,7 @@ const paisSchema = new mongoose.Schema({
     codigoPais: {
         type: Number,
         required: true,
+        index: true,
     },
 });
 
