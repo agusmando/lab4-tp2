@@ -21,6 +21,15 @@ const getOne = async (id) => {
   }
 };
 
+/* const createIndex = async () => {
+  try {
+    await daoPais.createIndex({ codigoPais: 1 });
+    console.log("Índice 'codigoPais' creado correctamente");
+  } catch (error) {
+    console.error("Error al crear el índice:", error);
+  }
+}; */ // CREADA EN PAISES.DAO. REVISAR
+
 const populate = async () => {
   for (let codigo = 1; codigo <= 300; codigo++) {
     const url = `https://restcountries.com/v2/callingcode/${codigo}`;
@@ -67,31 +76,36 @@ const populate = async () => {
 
   console.log("Proceso completado");
 };
+
 const buildQuery = (filters) => {
   const query = {};
 
-  // Iterar sobre las claves del objeto de filtros
   console.log(filters);
-  Object.keys(filters).forEach((key) => {
-    const value = filters[key];
-
-    // Agregar la condición al filtro
-    if (value.startsWith(">")) {
-      query[key] = { $gt: parseInt(value.slice(1)) };
-    } else if (value.startsWith("<")) {
-      query[key] = { $lt: parseInt(value.slice(1)) };
-    } else if (value.includes(">=")) {
-      const [from, to] = value.split(">=");
-      query[key] = { $gte: parseInt(from), $lt: parseInt(to) };
-    } else if (value.includes("<=")) {
-      const [from, to] = value.split("<=");
-      query[key] = { $gt: parseInt(from), $lte: parseInt(to) };
-    } else if (value.startsWith("$ne")) {
-      query[key] = { $ne: value.slice(4) };
+  // Iterar sobre los filtros
+  for (const [key, value] of Object.entries(filters)) {
+    // Verificar si el valor es un rango
+    if (value.lenght > 1) {
+      // Separar el rango
+      query[key] = { $gte: value[0], $lte: value[1] }; // NO FUNCIONA
+      console.log(query)
     } else {
-      query[key] = value;
+      // Procesar el filtro individual
+      if (value.startsWith(">")) {
+        query[key] = { $gt: parseInt(value.slice(1)) };
+      } else if (value.startsWith("<")) {
+        query[key] = { $lt: parseInt(value.slice(1)) };
+      } else if (value.includes(">=")) {
+        const [from, to] = value.split(">=").map((v) => parseInt(v));
+        query[key] = { $gte: from, $lt: to };
+      } else if (value.includes("<=")) {
+        const [from, to] = value.split("<=").map((v) => parseInt(v));
+        query[key] = { $gt: from, $lte: to };
+      } else {
+        query[key] = parseInt(value);
+      }
     }
-  });
+  }
+
   return query;
 };
 
@@ -103,7 +117,7 @@ const searchPaises = async (filters) => {
 // http://localhost:8080/paises/search?region=Americas
 // http://localhost:8080/paises/search?region=Americas&poblacion=>100000000
 // http://localhost:8080/paises/search?region=$ne:Africa
-// http://localhost:8080/paises/search?poblacion=>50000000&poblacion<=150000000 NO FUNCIONA
+// http://localhost:8080/paises/search?poblacion=>50000000&poblacion=<150000000 NO FUNCIONA
 
 const deletePaises = async (id) => {
   await daoPais.delete({ codigoPais: id });
